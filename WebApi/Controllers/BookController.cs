@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.CreateBook;
 using WebApi.BookOperations.GetBooks;
 using WebApi.DBOperations;
+using WebApi.Operations.BookOperations.CreateBook;
 using WebApi.Operations.BookOperations.DeleteBook;
 using WebApi.Operations.BookOperations.GetById;
 using WebApi.Operations.BookOperations.UpdateBook;
@@ -42,7 +45,12 @@ namespace WebApi.Controllers
             try
             {
                 GetBookByIdQuery query = new GetBookByIdQuery(_context,_mapper);
-                var vm = query.Handle(id);
+                query.Id = id;
+                // Validation
+                GetBookByIdQueryValidator validator = new GetBookByIdQueryValidator();
+                validator.ValidateAndThrow(query);
+                // Handle
+                var vm = query.Handle();
                 if (vm == null)
                     return NotFound("Book can not found.");
 
@@ -61,6 +69,10 @@ namespace WebApi.Controllers
             {
                 CreateBookCommand command = new CreateBookCommand(_context,_mapper);
                 command.Model = newBook;
+                // Validation
+                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                validator.ValidateAndThrow(command);
+                // Handle
                 command.Handle();
                 return Ok();
             }
@@ -78,7 +90,12 @@ namespace WebApi.Controllers
             {
                 UpdateBookCommand command = new UpdateBookCommand(_context);
                 command.Model = updatedBook;
-                var isSuccess =  command.Handle(id);
+                command.Id = id;
+                // Validation
+                UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
+                validator.ValidateAndThrow(command);
+                // Handle
+                var isSuccess =  command.Handle();
                 if(!isSuccess)
                     return NotFound("Book can not found");
 
@@ -96,15 +113,20 @@ namespace WebApi.Controllers
             try
             {
                 DeleteBookCommand command = new DeleteBookCommand(_context);
-                var isSuccess = command.Handle(id);
+                command.Id = id;
+                // Validation
+                DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+                validator.ValidateAndThrow(command);
+
+                var isSuccess = command.Handle();
                 if (!isSuccess)
                     return NotFound("Book can not found.");
 
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
     }

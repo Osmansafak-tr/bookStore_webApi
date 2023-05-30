@@ -8,6 +8,7 @@ namespace WebApi.Operations.BookOperations.GetById
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
+        public int Id { get; set; }
 
         public GetBookByIdQuery(BookStoreDbContext context,IMapper mapper)
         {
@@ -15,9 +16,9 @@ namespace WebApi.Operations.BookOperations.GetById
             _mapper = mapper;
         }
 
-        public GetBookByIdViewModel Handle(int id)
+        public GetBookByIdViewModel Handle()
         {
-            var book = _context.Books.Where(book => book.Id.Equals(id)).SingleOrDefault();
+            var book = _context.Books.Where(book => book.Id.Equals(Id)).SingleOrDefault();
             if (book == null)
                 return null;
 

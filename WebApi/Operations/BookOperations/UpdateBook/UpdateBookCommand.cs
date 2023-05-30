@@ -6,15 +6,16 @@ namespace WebApi.Operations.BookOperations.UpdateBook
     {
         private readonly BookStoreDbContext _context;
         public UpdateBookModel Model;
+        public int Id { get; set; }
 
         public UpdateBookCommand(BookStoreDbContext context)
         {
             _context = context;
         }
 
-        public Boolean Handle(int id)
+        public Boolean Handle()
         {
-            var book = _context.Books.SingleOrDefault(book => book.Id == id);
+            var book = _context.Books.SingleOrDefault(book => book.Id == Id);
             if (book == null)
                 return false;
 
