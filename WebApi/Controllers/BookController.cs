@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.CreateBook;
 using WebApi.BookOperations.GetBooks;
 using WebApi.DBOperations;
@@ -13,9 +14,11 @@ namespace WebApi.Controllers
     public class BookController : Controller
     {
         private readonly BookStoreDbContext _context;
-        public BookController(BookStoreDbContext dbContext)
+        private readonly IMapper _mapper;
+        public BookController(BookStoreDbContext dbContext,IMapper mapper)
         {
             _context = dbContext;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -23,7 +26,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                GetBooksQuery query = new GetBooksQuery(_context);
+                GetBooksQuery query = new GetBooksQuery(_context,_mapper);
                 var vm = query.Handle();
                 return Ok(vm);
             }
@@ -38,7 +41,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                GetBookByIdQuery query = new GetBookByIdQuery(_context);
+                GetBookByIdQuery query = new GetBookByIdQuery(_context,_mapper);
                 var vm = query.Handle(id);
                 if (vm == null)
                     return NotFound("Book can not found.");
@@ -56,7 +59,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                CreateBookCommand command = new CreateBookCommand(_context);
+                CreateBookCommand command = new CreateBookCommand(_context,_mapper);
                 command.Model = newBook;
                 command.Handle();
                 return Ok();

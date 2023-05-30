@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Server.IIS.Core;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using WebApi.DBOperations;
 
 namespace WebApi.BookOperations.CreateBook
@@ -8,10 +9,12 @@ namespace WebApi.BookOperations.CreateBook
         public CreateBookModel Model { get; set; }
 
         private readonly BookStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CreateBookCommand(BookStoreDbContext context)
+        public CreateBookCommand(BookStoreDbContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void Handle()
@@ -20,12 +23,8 @@ namespace WebApi.BookOperations.CreateBook
             if (alreadyHave != null)
                 throw new InvalidOperationException("Same book already created");
 
-            Book newBook = new Book();
-            newBook.Title = Model.Title;
-            newBook.PublishDate = Model.PublishDate;
-            newBook.GenreId = Model.GenreId;
-            newBook.PageCount = Model.PageCount;
-            _context.Books.Add(newBook);
+            Book book = _mapper.Map<Book>(Model);
+            _context.Books.Add(book);
             _context.SaveChanges();
         }
 
