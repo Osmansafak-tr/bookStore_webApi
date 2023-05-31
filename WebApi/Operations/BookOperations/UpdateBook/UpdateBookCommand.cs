@@ -13,18 +13,17 @@ namespace WebApi.Operations.BookOperations.UpdateBook
             _context = context;
         }
 
-        public Boolean Handle()
+        public void Handle()
         {
             var book = _context.Books.SingleOrDefault(book => book.Id == Id);
             if (book == null)
-                return false;
+                throw new KeyNotFoundException("Key not found.");
 
             book.Title = Model.Title != default ? Model.Title : book.Title;
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
             book.PublishDate = Model.PublishDate != default ? Model.PublishDate : book.PublishDate;
             book.PageCount = Model.PageCount != default ? Model.PageCount : book.PageCount;
             _context.SaveChanges();
-            return true;
         }
     }
 

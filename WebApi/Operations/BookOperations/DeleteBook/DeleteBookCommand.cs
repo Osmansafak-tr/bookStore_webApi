@@ -12,15 +12,14 @@ namespace WebApi.Operations.BookOperations.DeleteBook
             _context = context;
         }
 
-        public Boolean Handle()
+        public void Handle()
         {
             var book = _context.Books.SingleOrDefault(book => book.Id == Id);
             if (book == null)
-                return false;
+                throw new KeyNotFoundException("Key not found.");
 
             _context.Books.Remove(book);
             _context.SaveChanges();
-            return true;
         }
     }
 }
