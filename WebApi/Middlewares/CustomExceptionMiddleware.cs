@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net;
+using WebApi.Services.LoggerService;
 
 namespace WebApi.Middlewares
 {
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public CustomExceptionMiddleware(RequestDelegate next)
+        private readonly ILoggerService _loggerService;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService loggerService)
         {
             _next = next;
+            _loggerService = loggerService;
         }
 
         public async Task Invoke(HttpContext context)
@@ -20,14 +23,14 @@ namespace WebApi.Middlewares
             {
                 // Request
                 string req_message = "[Request]  Method: " + context.Request.Method + " - Path: " + context.Request.Path;
-                Debug.WriteLine(req_message);
+                _loggerService.Write(req_message);
                 await _next(context);
 
                 // Response
                 watch.Stop(); // Stop timer
                 string res_message = "[Response] Method: " + context.Request.Method + " - Path: " + context.Request.Path
                     + " - Status Code :" + context.Response.StatusCode + " | finished in " + watch.Elapsed.TotalMilliseconds + " ms";
-                Debug.WriteLine(res_message);
+                _loggerService.Write(res_message);
             }
             catch (Exception e)
             {
@@ -40,7 +43,7 @@ namespace WebApi.Middlewares
         {
             string message = "[Error]   Method:" + context.Request.Method + " - Status Code: " + context.Response.StatusCode
                 + " - Error Message:" + e.Message + " | finished in " + watch.Elapsed.TotalMilliseconds + " ms";
-            Debug.WriteLine(message);
+            _loggerService.Write(message);
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
