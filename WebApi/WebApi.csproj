@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <Folder Include="Middlewares\" />
+    <Folder Include="Operations\AuthorOperations\Commands\Create\" />
+    <Folder Include="Operations\AuthorOperations\Commands\Delete\" />
+    <Folder Include="Operations\AuthorOperations\Commands\Update\" />
+    <Folder Include="Operations\AuthorOperations\Queries\GetAuthors\" />
+    <Folder Include="Operations\AuthorOperations\Queries\GetAuthorById\" />
   </ItemGroup>
 
 </Project>
