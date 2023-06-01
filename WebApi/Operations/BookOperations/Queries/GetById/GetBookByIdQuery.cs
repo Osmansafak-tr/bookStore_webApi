@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Common;
 using WebApi.DBOperations;
 
-namespace WebApi.Operations.BookOperations.GetById
+namespace WebApi.Operations.BookOperations.Queries.GetById
 {
     public class GetBookByIdQuery
     {
@@ -18,7 +19,7 @@ namespace WebApi.Operations.BookOperations.GetById
 
         public GetBookByIdViewModel Handle()
         {
-            var book = _context.Books.Where(book => book.Id.Equals(Id)).SingleOrDefault();
+            var book = _context.Books.Include(x => x.Genre).Where(book => book.Id.Equals(Id)).SingleOrDefault();
             if (book == null)
                 throw new KeyNotFoundException("Key not found.");
 

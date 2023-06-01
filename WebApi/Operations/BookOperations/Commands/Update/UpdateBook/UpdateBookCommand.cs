@@ -1,6 +1,8 @@
-﻿using WebApi.DBOperations;
+﻿using AutoMapper;
+using WebApi.DBOperations;
+using WebApi.Entities;
 
-namespace WebApi.Operations.BookOperations.UpdateBook
+namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
 {
     public class UpdateBookCommand
     {

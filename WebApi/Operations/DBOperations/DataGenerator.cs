@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Entities;
 
 namespace WebApi.DBOperations
 {
@@ -11,6 +12,21 @@ namespace WebApi.DBOperations
                 // Check is there any book
                 if (context.Books.Any())
                     return;
+
+                context.Genres.AddRange(
+                    new Genre()
+                    {
+                        Name = "Personal Growth"
+                    },
+                    new Genre()
+                    {
+                        Name = "Science Fiction"
+                    },
+                    new Genre()
+                    {
+                        Name = "Romance"
+                    }
+                );
 
                 context.Books.AddRange
                 (
@@ -36,8 +52,8 @@ namespace WebApi.DBOperations
                         PublishDate = new DateTime(2001, 01, 03)
                     }
                 );
-                context.SaveChanges();
 
+                context.SaveChanges();
             }
 
         }
