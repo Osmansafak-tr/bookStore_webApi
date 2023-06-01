@@ -2,6 +2,7 @@
 using WebApi.BookOperations.Commands.Create.CreateBook;
 using WebApi.BookOperations.Queries.GetBooks;
 using WebApi.Entities;
+using WebApi.Operations.AuthorOperations.Commands.Create;
 using WebApi.Operations.AuthorOperations.Queries.GetAuthorById;
 using WebApi.Operations.AuthorOperations.Queries.GetAuthors;
 using WebApi.Operations.BookOperations.Commands.Update.UpdateBook;
@@ -16,7 +17,7 @@ namespace WebApi.Common
     {
         public MappingProfile()
         {
-            // Book 
+            //// BOOK 
             CreateMap<CreateBookModel, Book>();
             CreateMap<Book, GetBookByIdViewModel>()
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
@@ -25,16 +26,20 @@ namespace WebApi.Common
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
                 .ForMember(dest => dest.PublishDate, opt => opt.MapFrom(src => src.PublishDate.Date.ToString("dd/MM/yyyy")));
 
-            // Genre
+            //// GENRE
             CreateMap<Genre, GetGenresViewModel>();
             CreateMap<Genre, GetGenreByIdViewModel>();
             CreateMap<CreateGenreModel, Genre>();
 
-            // Author
+            //// AUTHOR
+            // GET authors
             CreateMap<Author, GetAuthorsViewModel>()
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy")));
+            // GET author by id
             CreateMap<Author, GetAuthorByIdViewModel>()
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy") ));
+            // CREATE author
+            CreateMap<CreateAuthorModel, Author>();
         }
     }
 }

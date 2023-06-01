@@ -18,9 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Middlewares\" />
-    <Folder Include="Operations\AuthorOperations\Commands\Create\" />
-    <Folder Include="Operations\AuthorOperations\Commands\Delete\" />
-    <Folder Include="Operations\AuthorOperations\Commands\Update\" />
   </ItemGroup>
 
 </Project>
