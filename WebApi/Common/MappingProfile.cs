@@ -2,6 +2,8 @@
 using WebApi.BookOperations.Commands.Create.CreateBook;
 using WebApi.BookOperations.Queries.GetBooks;
 using WebApi.Entities;
+using WebApi.Operations.AuthorOperations.Queries.GetAuthorById;
+using WebApi.Operations.AuthorOperations.Queries.GetAuthors;
 using WebApi.Operations.BookOperations.Commands.Update.UpdateBook;
 using WebApi.Operations.BookOperations.Queries.GetById;
 using WebApi.Operations.GenreOperations.Commands.Create.CreateGenre;
@@ -27,6 +29,12 @@ namespace WebApi.Common
             CreateMap<Genre, GetGenresViewModel>();
             CreateMap<Genre, GetGenreByIdViewModel>();
             CreateMap<CreateGenreModel, Genre>();
+
+            // Author
+            CreateMap<Author, GetAuthorsViewModel>()
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy")));
+            CreateMap<Author, GetAuthorByIdViewModel>()
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy") ));
         }
     }
 }
