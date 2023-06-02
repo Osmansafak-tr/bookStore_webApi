@@ -5,7 +5,6 @@ using WebApi.Entities;
 using WebApi.Operations.AuthorOperations.Commands.Create;
 using WebApi.Operations.AuthorOperations.Queries.GetAuthorById;
 using WebApi.Operations.AuthorOperations.Queries.GetAuthors;
-using WebApi.Operations.BookOperations.Commands.Update.UpdateBook;
 using WebApi.Operations.BookOperations.Queries.GetById;
 using WebApi.Operations.GenreOperations.Commands.Create.CreateGenre;
 using WebApi.Operations.GenreOperations.Queries.GetGenreById;
@@ -21,9 +20,11 @@ namespace WebApi.Common
             CreateMap<CreateBookModel, Book>();
             CreateMap<Book, GetBookByIdViewModel>()
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => (src.Author.Name + " " + src.Author.LastName)))
                 .ForMember(dest => dest.PublishDate, opt => opt.MapFrom(src => src.PublishDate.Date.ToString("dd/MM/yyyy")));
             CreateMap<Book,BooksViewModel>()
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => (src.Author.Name + " " + src.Author.LastName)))
                 .ForMember(dest => dest.PublishDate, opt => opt.MapFrom(src => src.PublishDate.Date.ToString("dd/MM/yyyy")));
 
             //// GENRE

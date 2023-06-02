@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.DBOperations;
+using WebApi.DB;
 using WebApi.Operations.AuthorOperations.Commands.Create;
 using WebApi.Operations.AuthorOperations.Commands.Delete;
 using WebApi.Operations.AuthorOperations.Commands.Update;

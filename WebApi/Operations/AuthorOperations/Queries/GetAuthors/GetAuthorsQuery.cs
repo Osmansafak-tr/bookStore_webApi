@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebApi.DBOperations;
+using WebApi.DB;
 
 namespace WebApi.Operations.AuthorOperations.Queries.GetAuthors
 {

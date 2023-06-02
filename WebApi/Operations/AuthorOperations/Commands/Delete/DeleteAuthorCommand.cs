@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using WebApi.DBOperations;
+using Microsoft.EntityFrameworkCore;
+using WebApi.DB;
 
 namespace WebApi.Operations.AuthorOperations.Commands.Delete
 {
@@ -17,9 +18,11 @@ namespace WebApi.Operations.AuthorOperations.Commands.Delete
 
         public void Handle()
         {
-            var author = _context.Authors.SingleOrDefault(x => x.Id == Id);
+            var author = _context.Authors.Include(x => x.Books).SingleOrDefault(x => x.Id == Id);
             if (author == null)
                 throw new KeyNotFoundException("Author not found");
+            if (author.Books.Count() > 0)
+                throw new InvalidOperationException("There are this author's books in database. Please delete that books first.");
 
             _context.Remove(author);
             _context.SaveChanges();

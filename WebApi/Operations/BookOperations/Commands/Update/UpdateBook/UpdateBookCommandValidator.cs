@@ -10,6 +10,7 @@ namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
             // Model
             RuleFor(command => command.Model.Title).NotNull().MinimumLength(3);
             RuleFor(command => command.Model.GenreId).GreaterThan(0);
+            RuleFor(command => command.Model.AuthorId).GreaterThan(0);
             RuleFor(command => command.Model.PageCount).GreaterThan(0);
             RuleFor(command => command.Model.PublishDate).LessThan(DateTime.Now);
             // Id

@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.Commands.Create.CreateBook;
 using WebApi.BookOperations.Queries.GetBooks;
-using WebApi.DBOperations;
+using WebApi.DB;
 using WebApi.Operations.BookOperations.Commands.Delete.DeleteBook;
 using WebApi.Operations.BookOperations.Commands.Update.UpdateBook;
 using WebApi.Operations.BookOperations.Queries.GetById;

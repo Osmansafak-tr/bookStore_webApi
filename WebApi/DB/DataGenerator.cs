@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Entities;
 
-namespace WebApi.DBOperations
+namespace WebApi.DB
 {
     public class DataGenerator
     {
@@ -34,6 +34,7 @@ namespace WebApi.DBOperations
                     {
                         Title = "Book 1",
                         GenreId = 1,
+                        AuthorId = 1,
                         PageCount = 20,
                         PublishDate = new DateTime(2001, 01, 01)
                     },
@@ -41,6 +42,7 @@ namespace WebApi.DBOperations
                     {
                         Title = "Book 2",
                         GenreId = 1,
+                        AuthorId = 1,
                         PageCount = 60,
                         PublishDate = new DateTime(2001, 01, 02)
                     },
@@ -48,23 +50,26 @@ namespace WebApi.DBOperations
                     {
                         Title = "Book 3",
                         GenreId = 2,
+                        AuthorId = 2,
                         PageCount = 50,
                         PublishDate = new DateTime(2001, 01, 03)
                     }
                 );
 
+                List<Book> books = new List<Book>();
+                books.AddRange(context.Books);
                 context.Authors.AddRange(
                     new Author
                     {
                         Name = "George",
                         LastName = "Orwell",
-                        DateOfBirth = new DateTime(1903,6,25)
+                        DateOfBirth = new DateTime(1903, 6, 25),
                     },
                     new Author
                     {
                         Name = "Stefan",
                         LastName = "Zweig",
-                        DateOfBirth= new DateTime(1881,11,28)
+                        DateOfBirth = new DateTime(1881, 11, 28)
                     },
                     new Author
                     {
