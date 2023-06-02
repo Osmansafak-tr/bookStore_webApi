@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebApi.DBOperations;
+using WebApi.DB;
 using WebApi.Entities;
 
 namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
@@ -23,6 +23,7 @@ namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
 
             book.Title = Model.Title != default ? Model.Title : book.Title;
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
+            book.AuthorId = Model.AuthorId != default ? Model.AuthorId : book.AuthorId;
             book.PublishDate = Model.PublishDate != default ? Model.PublishDate : book.PublishDate;
             book.PageCount = Model.PageCount != default ? Model.PageCount : book.PageCount;
             _context.SaveChanges();
@@ -33,6 +34,7 @@ namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
     {
         public string Title { get; set; }
         public int GenreId { get; set; }
+        public int AuthorId { get; set; }
         public int PageCount { get; set; }
         public DateTime PublishDate { get; set; }
     }

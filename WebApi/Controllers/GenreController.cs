@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.DBOperations;
+using WebApi.DB;
 using WebApi.Operations.GenreOperations.Commands.Create.CreateGenre;
 using WebApi.Operations.GenreOperations.Commands.Delete.DeleteGenre;
 using WebApi.Operations.GenreOperations.Commands.Update.UpdateGenre;

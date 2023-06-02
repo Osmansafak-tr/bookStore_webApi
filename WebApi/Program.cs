@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using WebApi.DBOperations;
+using WebApi.DB;
 using WebApi.Middlewares;
 using WebApi.Services.LoggerService;
 

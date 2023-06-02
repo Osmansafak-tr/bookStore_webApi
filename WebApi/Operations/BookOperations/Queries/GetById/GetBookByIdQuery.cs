@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Common;
-using WebApi.DBOperations;
+using WebApi.DB;
 
 namespace WebApi.Operations.BookOperations.Queries.GetById
 {
@@ -19,7 +18,7 @@ namespace WebApi.Operations.BookOperations.Queries.GetById
 
         public GetBookByIdViewModel Handle()
         {
-            var book = _context.Books.Include(x => x.Genre).Where(book => book.Id.Equals(Id)).SingleOrDefault();
+            var book = _context.Books.Include(x => x.Genre).Include(x => x.Author).Where(book => book.Id.Equals(Id)).SingleOrDefault();
             if (book == null)
                 throw new KeyNotFoundException("Key not found.");
 
@@ -33,6 +32,7 @@ namespace WebApi.Operations.BookOperations.Queries.GetById
     {
         public string Title { get; set; }
         public string Genre { get; set; }
+        public string Author { get; set; }
         public int PageCount { get; set; }
         public string PublishDate { get; set; }
     }
