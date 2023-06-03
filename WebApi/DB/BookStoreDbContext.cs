@@ -1,15 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using WebApi.Entities;
 
 namespace WebApi.DB
 {
-    public class BookStoreDbContext : DbContext
+    public class BookStoreDbContext : DbContext,IBookStoreDbContext
     {
         public BookStoreDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
+
+        public override EntityEntry Remove(object entity)
+        {
+            return base.Remove(entity);
+        }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -5,11 +5,11 @@ namespace WebApi.Operations.GenreOperations.Queries.GetGenreById
 {
     public class GetGenreByIdQuery
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
         public int Id { get; set; }
 
-        public GetGenreByIdQuery(BookStoreDbContext context, IMapper mapper)
+        public GetGenreByIdQuery(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
