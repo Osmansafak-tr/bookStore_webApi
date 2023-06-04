@@ -19,7 +19,7 @@ namespace WebApi.Operations.BookOperations.Commands.Update.UpdateBook
         {
             var book = _context.Books.SingleOrDefault(book => book.Id == Id);
             if (book == null)
-                throw new KeyNotFoundException("Key not found.");
+                throw new KeyNotFoundException("Book can not found with this id.");
 
             book.Title = Model.Title != default ? Model.Title : book.Title;
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;

@@ -20,7 +20,7 @@ namespace WebApi.Operations.BookOperations.Queries.GetById
         {
             var book = _context.Books.Include(x => x.Genre).Include(x => x.Author).Where(book => book.Id.Equals(Id)).SingleOrDefault();
             if (book == null)
-                throw new KeyNotFoundException("Key not found.");
+                throw new KeyNotFoundException("Book can not found with this id.");
 
             GetBookByIdViewModel viewModel = new GetBookByIdViewModel();
             viewModel = _mapper.Map<GetBookByIdViewModel>(book);

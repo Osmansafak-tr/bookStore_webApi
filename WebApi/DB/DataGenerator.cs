@@ -56,8 +56,6 @@ namespace WebApi.DB
                     }
                 );
 
-                List<Book> books = new List<Book>();
-                books.AddRange(context.Books);
                 context.Authors.AddRange(
                     new Author
                     {

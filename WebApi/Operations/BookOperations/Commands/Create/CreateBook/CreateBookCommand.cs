@@ -22,7 +22,7 @@ namespace WebApi.BookOperations.Commands.Create.CreateBook
         {
             var alreadyHave = _context.Books.SingleOrDefault(book => book.Title == Model.Title);
             if (alreadyHave != null)
-                throw new InvalidOperationException("Same book already created");
+                throw new InvalidOperationException("Same book already created.");
 
             Book book = _mapper.Map<Book>(Model);
             _context.Books.Add(book);
