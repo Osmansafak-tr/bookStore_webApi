@@ -16,7 +16,7 @@ namespace WebApi.Operations.GenreOperations.Commands.Delete.DeleteGenre
         {
             var genre = _context.Genres.SingleOrDefault(genre => genre.Id == Id);
             if (genre == null)
-                throw new KeyNotFoundException("Key not found");
+                throw new KeyNotFoundException("Genre can not found with this id.");
 
             _context.Genres.Remove(genre);
             _context.SaveChanges();

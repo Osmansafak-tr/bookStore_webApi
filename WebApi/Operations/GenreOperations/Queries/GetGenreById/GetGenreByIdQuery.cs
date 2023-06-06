@@ -19,7 +19,7 @@ namespace WebApi.Operations.GenreOperations.Queries.GetGenreById
         {
             var genre = _context.Genres.SingleOrDefault(genre => genre.IsActive && genre.Id == Id);
             if (genre == null)
-                throw new KeyNotFoundException("Genre key not found or genre is inactive");
+                throw new KeyNotFoundException("Genre key not found or genre is inactive.");
             return _mapper.Map<GetGenreByIdViewModel>(genre);
         }
     }
