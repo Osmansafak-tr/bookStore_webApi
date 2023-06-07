@@ -12,7 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// My services
 builder.Services.AddDbContext<BookStoreDbContext>(o => o.UseInMemoryDatabase(databaseName: "BookStoreDB"));
+builder.Services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<BookStoreDbContext>());
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 

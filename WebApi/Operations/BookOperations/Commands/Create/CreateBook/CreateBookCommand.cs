@@ -9,10 +9,10 @@ namespace WebApi.BookOperations.Commands.Create.CreateBook
     {
         public CreateBookModel Model { get; set; }
 
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateBookCommand(BookStoreDbContext context,IMapper mapper)
+        public CreateBookCommand(IBookStoreDbContext context,IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -22,7 +22,7 @@ namespace WebApi.BookOperations.Commands.Create.CreateBook
         {
             var alreadyHave = _context.Books.SingleOrDefault(book => book.Title == Model.Title);
             if (alreadyHave != null)
-                throw new InvalidOperationException("Same book already created");
+                throw new InvalidOperationException("Same book already created.");
 
             Book book = _mapper.Map<Book>(Model);
             _context.Books.Add(book);

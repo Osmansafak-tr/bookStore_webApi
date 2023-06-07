@@ -5,11 +5,11 @@ namespace WebApi.Operations.GenreOperations.Queries.GetGenreById
 {
     public class GetGenreByIdQuery
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
         public int Id { get; set; }
 
-        public GetGenreByIdQuery(BookStoreDbContext context, IMapper mapper)
+        public GetGenreByIdQuery(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -19,7 +19,7 @@ namespace WebApi.Operations.GenreOperations.Queries.GetGenreById
         {
             var genre = _context.Genres.SingleOrDefault(genre => genre.IsActive && genre.Id == Id);
             if (genre == null)
-                throw new KeyNotFoundException("Genre key not found or genre is inactive");
+                throw new KeyNotFoundException("Genre key not found or genre is inactive.");
             return _mapper.Map<GetGenreByIdViewModel>(genre);
         }
     }

@@ -4,10 +4,10 @@ namespace WebApi.Operations.BookOperations.Commands.Delete.DeleteBook
 {
     public class DeleteBookCommand
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         public int Id { get; set; }
 
-        public DeleteBookCommand(BookStoreDbContext context)
+        public DeleteBookCommand(IBookStoreDbContext context)
         {
             _context = context;
         }
@@ -16,7 +16,7 @@ namespace WebApi.Operations.BookOperations.Commands.Delete.DeleteBook
         {
             var book = _context.Books.SingleOrDefault(book => book.Id == Id);
             if (book == null)
-                throw new KeyNotFoundException("Key not found.");
+                throw new KeyNotFoundException("Book can not found with this id.");
 
             _context.Books.Remove(book);
             _context.SaveChanges();

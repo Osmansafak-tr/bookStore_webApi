@@ -4,11 +4,11 @@ namespace WebApi.Operations.GenreOperations.Commands.Update.UpdateGenre
 {
     public class UpdateGenreCommand
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         public int Id { get; set; }
         public UpdateGenreModel Model { get; set; }
 
-        public UpdateGenreCommand(BookStoreDbContext context)
+        public UpdateGenreCommand(IBookStoreDbContext context)
         {
             _context = context;
         }
@@ -17,10 +17,10 @@ namespace WebApi.Operations.GenreOperations.Commands.Update.UpdateGenre
         {
             var genre = _context.Genres.SingleOrDefault(genre => genre.Id == Id);
             if (genre is null)
-                throw new KeyNotFoundException("Key not found");
+                throw new KeyNotFoundException("Genre can not found with this id.");
             // If there is a genre that already have same name.
-            if (_context.Genres.Any(g => g.Name.ToLower() == genre.Name.ToLower() && g.Id != Id ))
-                throw new InvalidOperationException("There is a genre that already have this name");
+            if (_context.Genres.Any(g => g.Name.ToLower() == Model.Name.ToLower() && g.Id != Id ))
+                throw new InvalidOperationException("There is a genre that already have this name.");
 
             genre.Name = Model.Name.Trim() != default ? Model.Name.Trim() : genre.Name;
             genre.IsActive = Model.IsActive;

@@ -4,10 +4,10 @@ namespace WebApi.Operations.GenreOperations.Commands.Delete.DeleteGenre
 {
     public class DeleteGenreCommand
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         public int Id { get; set; }
 
-        public DeleteGenreCommand(BookStoreDbContext context)
+        public DeleteGenreCommand(IBookStoreDbContext context)
         {
             _context = context;
         }
@@ -16,7 +16,7 @@ namespace WebApi.Operations.GenreOperations.Commands.Delete.DeleteGenre
         {
             var genre = _context.Genres.SingleOrDefault(genre => genre.Id == Id);
             if (genre == null)
-                throw new KeyNotFoundException("Key not found");
+                throw new KeyNotFoundException("Genre can not found with this id.");
 
             _context.Genres.Remove(genre);
             _context.SaveChanges();

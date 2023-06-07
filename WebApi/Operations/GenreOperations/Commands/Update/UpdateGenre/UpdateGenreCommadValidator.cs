@@ -8,7 +8,6 @@ namespace WebApi.Operations.GenreOperations.Commands.Update.UpdateGenre
         {
             //Model
             RuleFor(command => command.Model.Name.Trim()).MinimumLength(3);
-            RuleFor(command => command.Model.IsActive).NotNull();
             // Id
             RuleFor(command => command.Id).GreaterThan(0);
         }
