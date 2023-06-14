@@ -9,6 +9,9 @@ using WebApi.Operations.BookOperations.Queries.GetById;
 using WebApi.Operations.GenreOperations.Commands.Create.CreateGenre;
 using WebApi.Operations.GenreOperations.Queries.GetGenreById;
 using WebApi.Operations.GenreOperations.Queries.GetGenres;
+using WebApi.Operations.UserOperations.Commands.Create.CreateUser;
+using WebApi.Operations.UserOperations.Queries.GetUserById;
+using WebApi.Operations.UserOperations.Queries.GetUsers;
 
 namespace WebApi.Common
 {
@@ -16,7 +19,7 @@ namespace WebApi.Common
     {
         public MappingProfile()
         {
-            //// BOOK 
+            // BOOK 
             CreateMap<CreateBookModel, Book>();
             CreateMap<Book, GetBookByIdViewModel>()
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
@@ -27,20 +30,22 @@ namespace WebApi.Common
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => (src.Author.Name + " " + src.Author.LastName)))
                 .ForMember(dest => dest.PublishDate, opt => opt.MapFrom(src => src.PublishDate.Date.ToString("dd/MM/yyyy")));
 
-            //// GENRE
+            // GENRE
             CreateMap<Genre, GetGenresViewModel>();
             CreateMap<Genre, GetGenreByIdViewModel>();
             CreateMap<CreateGenreModel, Genre>();
 
-            //// AUTHOR
-            // GET authors
+            // AUTHOR
             CreateMap<Author, GetAuthorsViewModel>()
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy")));
-            // GET author by id
             CreateMap<Author, GetAuthorByIdViewModel>()
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date.ToString("dd/MM/yyyy") ));
-            // CREATE author
             CreateMap<CreateAuthorModel, Author>();
+
+            // USER
+            CreateMap<User, GetUsersViewModel>();
+            CreateMap<User, GetUserByIdViewModel>();
+            CreateMap<CreateUserModel, User>();
         }
     }
 }

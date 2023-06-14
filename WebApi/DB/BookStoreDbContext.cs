@@ -11,6 +11,17 @@ namespace WebApi.DB
         public DbSet<Book> Books { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public override EntityEntry Remove(object entity)
+        {
+            return base.Remove(entity);
+        }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
 
         public override EntityEntry Remove(object entity)
         {
