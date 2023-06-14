@@ -23,6 +23,16 @@ namespace WebApi.DB
             return base.SaveChanges();
         }
 
+        public override EntityEntry Remove(object entity)
+        {
+            return base.Remove(entity);
+        }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Author - Books | Many to one
